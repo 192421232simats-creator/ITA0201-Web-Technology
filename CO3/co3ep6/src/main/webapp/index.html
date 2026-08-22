@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MeritDesk | Student Result Portal</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 10% 10%, rgba(212, 106, 76, 0.16), transparent 28%),
+        radial-gradient(circle at 90% 90%, rgba(128, 0, 32, 0.13), transparent 30%),
+        #f7f1e8;
+    color: #382b2b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 35px;
+}
+
+.portal {
+    width: 1000px;
+    max-width: 100%;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(128, 0, 32, 0.12);
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 25px 65px rgba(74, 48, 42, 0.18);
+}
+
+.top {
+    padding: 26px 38px;
+    background: #fffaf5;
+    border-bottom: 1px solid #eadfd6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #8b1e3f, #d46a4c);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 23px;
+    box-shadow: 0 8px 20px rgba(139, 30, 63, 0.22);
+}
+
+.brand h2 {
+    color: #4a1f2a;
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+
+.status {
+    padding: 8px 14px;
+    border-radius: 30px;
+    background: #f4ebe4;
+    color: #8b1e3f;
+    border: 1px solid #e7d7ce;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.content {
+    padding: 42px;
+}
+
+.intro {
+    margin-bottom: 30px;
+}
+
+.intro small {
+    color: #b24b38;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.intro h1 {
+    margin-top: 9px;
+    font-size: 35px;
+    line-height: 1.15;
+    color: #4a1f2a;
+}
+
+.intro p {
+    margin-top: 10px;
+    color: #806f6a;
+    font-size: 14px;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
+.field label {
+    margin-bottom: 8px;
+    color: #684d48;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+}
+
+.field input {
+    width: 100%;
+    padding: 15px 16px;
+    border-radius: 12px;
+    border: 1px solid #ded0c7;
+    background: #fffdfb;
+    color: #382b2b;
+    outline: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.field input::placeholder {
+    color: #aa9b95;
+}
+
+.field input:focus {
+    border-color: #d46a4c;
+    box-shadow: 0 0 0 4px rgba(212, 106, 76, 0.10);
+}
+
+.subject-title {
+    grid-column: 1 / -1;
+    margin-top: 8px;
+    color: #4a1f2a;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.subjects {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.subject {
+    padding: 19px;
+    background: #fffaf5;
+    border: 1px solid #eadfd6;
+    border-radius: 17px;
+    transition: 0.3s;
+}
+
+.subject:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(74, 48, 42, 0.08);
+}
+
+.subject span {
+    display: block;
+    color: #b24b38;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+}
+
+.subject input {
+    width: 100%;
+    padding: 13px;
+    border-radius: 10px;
+    border: 1px solid #ded0c7;
+    background: white;
+    color: #382b2b;
+    outline: none;
+    font-size: 15px;
+}
+
+.subject input:focus {
+    border-color: #8b1e3f;
+    box-shadow: 0 0 0 3px rgba(139, 30, 63, 0.08);
+}
+
+.actions {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 13px;
+    margin-top: 8px;
+}
+
+button {
+    padding: 15px 22px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 800;
+    transition: 0.3s;
+}
+
+.calculate {
+    flex: 1;
+    border: none;
+    color: white;
+    background: linear-gradient(100deg, #8b1e3f, #d46a4c);
+    box-shadow: 0 8px 20px rgba(139, 30, 63, 0.18);
+}
+
+.clear {
+    border: 1px solid #dccdc4;
+    color: #684d48;
+    background: #fffaf5;
+}
+
+button:hover {
+    transform: translateY(-3px);
+}
+
+.calculate:hover {
+    box-shadow: 0 12px 28px rgba(139, 30, 63, 0.25);
+}
+
+.clear:hover {
+    background: #f5ece5;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 25px;
+    color: #9a8983;
+    font-size: 11px;
+}
+
+@media(max-width: 700px) {
+
+    body {
+        padding: 15px;
+    }
+
+    .content {
+        padding: 28px 22px;
+    }
+
+    .top {
+        padding: 22px;
+    }
+
+    .status {
+        display: none;
+    }
+
+    .form,
+    .subjects {
+        grid-template-columns: 1fr;
+    }
+
+    .subject-title,
+    .subjects {
+        grid-column: auto;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="portal">
+
+    <div class="top">
+
+        <div class="brand">
+
+            <div class="logo">M</div>
+
+            <h2>MeritDesk</h2>
+
+        </div>
+
+        <div class="status">
+            ● SERVER READY
+        </div>
+
+    </div>
+
+    <div class="content">
+
+        <div class="intro">
+
+            <small>ACADEMIC RESULT MANAGEMENT</small>
+
+            <h1>
+                Student Result<br>
+                Processing Portal
+            </h1>
+
+            <p>
+                Enter student information and marks to generate a complete academic result.
+            </p>
+
+        </div>
+
+        <form class="form" action="StudentResultServlet" method="post">
+
+            <div class="field">
+
+                <label>STUDENT NAME</label>
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Enter student's full name"
+                    required>
+
+            </div>
+
+            <div class="field">
+
+                <label>REGISTER NUMBER</label>
+
+                <input
+                    type="text"
+                    name="register"
+                    placeholder="Enter register number"
+                    required>
+
+            </div>
+
+            <div class="subject-title">
+                SUBJECT MARKS
+            </div>
+
+            <div class="subjects">
+
+                <div class="subject">
+
+                    <span>SUBJECT 01</span>
+
+                    <input
+                        type="number"
+                        name="mark1"
+                        min="0"
+                        max="100"
+                        placeholder="Enter mark"
+                        required>
+
+                </div>
+
+                <div class="subject">
+
+                    <span>SUBJECT 02</span>
+
+                    <input
+                        type="number"
+                        name="mark2"
+                        min="0"
+                        max="100"
+                        placeholder="Enter mark"
+                        required>
+
+                </div>
+
+                <div class="subject">
+
+                    <span>SUBJECT 03</span>
+
+                    <input
+                        type="number"
+                        name="mark3"
+                        min="0"
+                        max="100"
+                        placeholder="Enter mark"
+                        required>
+
+                </div>
+
+            </div>
+
+            <div class="actions">
+
+                <button
+                    type="submit"
+                    class="calculate">
+                    Generate Result →
+                </button>
+
+                <button
+                    type="reset"
+                    class="clear">
+                    Clear
+                </button>
+
+            </div>
+
+        </form>
+
+        <div class="footer">
+            MeritDesk • Student Result Processing System
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
