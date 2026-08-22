@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cross-Browser Compatible Webpage</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #ecfeff;
+            color: #164e63;
+        }
+
+        header {
+            background: #155e75;
+            color: #ffffff;
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        header p {
+            color: #a5f3fc;
+            margin-top: 10px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 35px auto;
+            padding: 20px;
+        }
+
+        .intro {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 6px solid #0891b2;
+            box-shadow: 0 5px 18px rgba(8, 145, 178, 0.15);
+            margin-bottom: 25px;
+        }
+
+        .intro h2 {
+            color: #0e7490;
+            margin-top: 0;
+        }
+
+        .feature-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        @supports (display: grid) {
+            .feature-container {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .feature-card {
+            flex: 1 1 250px;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 18px rgba(8, 145, 178, 0.12);
+            border-top: 5px solid #f97316;
+        }
+
+        .feature-card h3 {
+            color: #c2410c;
+            margin-top: 0;
+        }
+
+        .status {
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .supported {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .unsupported {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .fallback {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .storage-box {
+            margin-top: 25px;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 18px rgba(8, 145, 178, 0.12);s
+        }
+
+        .storage-box h2 {
+            color: #0e7490;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #a5f3fc;
+            border-radius: 8px;
+            font-size: 15px;
+            margin: 10px 0;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #0891b2;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #ea580c;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button:hover {
+            background: #c2410c;
+        }
+
+        #message {
+            margin-top: 15px;
+            padding: 15px;
+            background: #cffafe;
+            color: #155e75;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .legacy {
+            margin-top: 25px;
+            padding: 20px;
+            background: #fef2f2;
+            border-radius: 12px;
+            border-left: 5px solid #dc2626;
+            color: #7f1d1d;
+        }
+
+        footer {
+            margin-top: 30px;
+            padding: 25px;
+            text-align: center;
+            background: #083344;
+            color: #a5f3fc;
+        }
+
+        @media (max-width: 700px) {
+            .feature-container {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Cross-Browser Compatibility</h1>
+        <p>Feature Detection and Fallback Demonstration</p>
+    </header>
+
+    <div class="container">
+
+        <div class="intro">
+            <h2>Browser Compatibility Dashboard</h2>
+            <p>
+                This webpage checks browser features before using them
+                and provides fallback methods when required features
+                are unavailable.
+            </p>
+        </div>
+
+        <div class="feature-container">
+
+            <div class="feature-card">
+                <h3>localStorage</h3>
+                <p>Checks whether browser storage is available.</p>
+                <div id="storageStatus" class="status">
+                    Checking...
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <h3>querySelector()</h3>
+                <p>Checks support for modern DOM selection.</p>
+                <div id="queryStatus" class="status">
+                    Checking...
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <h3>CSS Grid</h3>
+                <p>Uses @supports to detect CSS Grid support.</p>
+                <div id="cssStatus" class="status">
+                    Checking...
+                </div>
+            </div>
+
+        </div>
+
+        <div class="storage-box">
+
+            <h2>Browser Storage Test</h2>
+
+            <input
+                type="text"
+                id="userData"
+                placeholder="Enter a message to save"
+            >
+
+            <button id="saveButton">
+                Save Data
+            </button>
+
+            <button id="loadButton">
+                Load Data
+            </button>
+
+            <button id="clearButton">
+                Clear Data
+            </button>
+
+            <div id="message"></div>
+
+        </div>
+
+        <div class="legacy">
+            <strong>Fallback Support:</strong>
+            If localStorage is unavailable, the webpage uses temporary
+            in-memory storage. If querySelector() is unavailable,
+            getElementById() is used instead.
+        </div>
+
+    </div>
+
+    <footer>
+        Cross-Browser Compatible Interactive Webpage
+    </footer>
+
+    <script>
+        var querySupported =
+            typeof document.querySelector === "function";
+
+        var storageSupported = false;
+
+        try {
+            var testKey = "__browser_test__";
+
+            localStorage.setItem(testKey, "test");
+
+            localStorage.removeItem(testKey);
+
+            storageSupported = true;
+        }
+        catch (error) {
+            storageSupported = false;
+        }
+
+        var temporaryStorage = "";
+
+        function getElement(id) {
+            if (querySupported) {
+                return document.querySelector("#" + id);
+            }
+
+            return document.getElementById(id);
+        }
+
+        function setStatus(element, supported, normalText, fallbackText) {
+            if (supported) {
+                element.textContent = normalText;
+                element.className = "status supported";
+            }
+            else {
+                element.textContent = fallbackText;
+                element.className = "status fallback";
+            }
+        }
+
+        var storageStatus = getElement("storageStatus");
+
+        setStatus(
+            storageStatus,
+            storageSupported,
+            "Supported",
+            "Not Supported - Temporary Storage Used"
+        );
+
+        var queryStatus = getElement("queryStatus");
+
+        setStatus(
+            queryStatus,
+            querySupported,
+            "Supported",
+            "Not Supported - getElementById() Used"
+        );
+
+        var cssStatus = getElement("cssStatus");
+
+        if (
+            window.CSS &&
+            typeof CSS.supports === "function" &&
+            CSS.supports("display", "grid")
+        ) {
+            cssStatus.textContent = "Supported";
+            cssStatus.className = "status supported";
+        }
+        else {
+            cssStatus.textContent = "Not Supported - Flexbox Fallback Used";
+            cssStatus.className = "status fallback";
+        }
+
+        var input = getElement("userData");
+        var message = getElement("message");
+        var saveButton = getElement("saveButton");
+        var loadButton = getElement("loadButton");
+        var clearButton = getElement("clearButton");
+
+        function showMessage(text) {
+            message.textContent = text;
+            message.style.display = "block";
+        }
+
+        function saveData() {
+            if (input.value.trim() === "") {
+                showMessage("Please enter some data.");
+                return;
+            }
+
+            if (storageSupported) {
+                localStorage.setItem("studentMessage", input.value);
+                showMessage("Data saved using localStorage.");
+            }
+            else {
+                temporaryStorage = input.value;
+                showMessage("Data saved temporarily using fallback storage.");
+            }
+        }
+
+        function loadData() {
+            var savedData = "";
+
+            if (storageSupported) {
+                savedData =
+                    localStorage.getItem("studentMessage") || "";
+            }
+            else {
+                savedData = temporaryStorage;
+            }
+
+            if (savedData !== "") {
+                input.value = savedData;
+                showMessage("Saved data loaded successfully.");
+            }
+            else {
+                showMessage("No saved data found.");
+            }
+        }
+
+        function clearData() {
+            if (storageSupported) {
+                localStorage.removeItem("studentMessage");
+            }
+
+            temporaryStorage = "";
+
+            input.value = "";
+
+            showMessage("Stored data has been cleared.");
+        }
+
+        if (typeof saveButton.addEventListener === "function") {
+
+            saveButton.addEventListener("click", saveData);
+
+            loadButton.addEventListener("click", loadData);
+
+            clearButton.addEventListener("click", clearData);
+
+        }
+        else {
+
+            saveButton.onclick = saveData;
+
+            loadButton.onclick = loadData;
+
+            clearButton.onclick = clearData;
+        }
+    </script>
+
+</body>
+
+</html>
+

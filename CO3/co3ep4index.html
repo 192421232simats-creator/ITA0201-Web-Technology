@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser Information Dashboard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #fff7ed;
+            color: #292524;
+        }
+
+        header {
+            background: #7c2d12;
+            color: #ffffff;
+            padding: 35px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        header p {
+            color: #fed7aa;
+            margin-top: 10px;
+        }
+
+        .dashboard {
+            max-width: 1000px;
+            margin: 35px auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(124, 45, 18, 0.15);
+            border-top: 5px solid #ea580c;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #9a3412;
+        }
+
+        .value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #44403c;
+            word-break: break-word;
+        }
+
+        .online {
+            color: #15803d;
+        }
+
+        .offline {
+            color: #b91c1c;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        #resizeMessage {
+            max-width: 900px;
+            margin: 0 auto 25px;
+            padding: 16px;
+            text-align: center;
+            background: #fef3c7;
+            color: #92400e;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+
+        .scroll-area {
+            max-width: 900px;
+            height: 650px;
+            margin: 30px auto;
+            padding: 40px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(124, 45, 18, 0.12);
+            text-align: center;
+        }
+
+        .scroll-area h2 {
+            color: #c2410c;
+        }
+
+        .bottom {
+            margin-top: 430px;
+            padding: 25px;
+            background: #ffedd5;
+            border-radius: 12px;
+            color: #7c2d12;
+        }
+
+        footer {
+            background: #431407;
+            color: #fed7aa;
+            text-align: center;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 650px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+
+            header h1 {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Browser Information Dashboard</h1>
+        <p>Window Object and Browser Information</p>
+    </header>
+
+    <div class="dashboard">
+
+        <div class="card full">
+            <h3>Current URL</h3>
+            <div class="value" id="url">Loading...</div>
+        </div>
+
+        <div class="card">
+            <h3>Browser Language</h3>
+            <div class="value" id="language">Loading...</div>
+        </div>
+
+        <div class="card">
+            <h3>Online / Offline Status</h3>
+            <div class="value" id="status">Loading...</div>
+        </div>
+
+        <div class="card">
+            <h3>Screen Width</h3>
+            <div class="value" id="screenWidth">Loading...</div>
+        </div>
+
+        <div class="card">
+            <h3>Screen Height</h3>
+            <div class="value" id="screenHeight">Loading...</div>
+        </div>
+
+        <div class="card">
+            <h3>Viewport Width</h3>
+            <div class="value" id="viewportWidth">Loading...</div>
+        </div>
+
+        <div class="card">
+            <h3>Viewport Height</h3>
+            <div class="value" id="viewportHeight">Loading...</div>
+        </div>
+
+        <div class="card">
+            <h3>Horizontal Scroll</h3>
+            <div class="value" id="scrollX">Loading...</div>
+        </div>
+
+        <div class="card">
+            <h3>Vertical Scroll</h3>
+            <div class="value" id="scrollY">Loading...</div>
+        </div>
+
+    </div>
+
+    <div id="resizeMessage">
+        Resize the browser window to see the viewport dimensions.
+    </div>
+
+    <div class="scroll-area">
+
+        <h2>Scroll Demonstration</h2>
+
+        <p>
+            Scroll down the page and observe the vertical scroll position.
+        </p>
+
+        <div class="bottom">
+            <h3>Bottom Section</h3>
+            <p>
+                The scroll position is updated automatically.
+            </p>
+        </div>
+
+    </div>
+
+    <footer>
+        Browser Information Dashboard
+    </footer>
+
+    <script>
+        function updateDashboard() {
+            document.getElementById("url").textContent =
+                window.location.href;
+
+            document.getElementById("language").textContent =
+                navigator.language;
+
+            let status = document.getElementById("status");
+
+            if (navigator.onLine) {
+                status.textContent = "Online";
+                status.className = "value online";
+            } else {
+                status.textContent = "Offline";
+                status.className = "value offline";
+            }
+
+            document.getElementById("screenWidth").textContent =
+                screen.width + " px";
+
+            document.getElementById("screenHeight").textContent =
+                screen.height + " px";
+
+            document.getElementById("viewportWidth").textContent =
+                window.innerWidth + " px";
+
+            document.getElementById("viewportHeight").textContent =
+                window.innerHeight + " px";
+
+            document.getElementById("scrollX").textContent =
+                window.scrollX + " px";
+
+            document.getElementById("scrollY").textContent =
+                window.scrollY + " px";
+        }
+
+        updateDashboard();
+
+        window.addEventListener("resize", function() {
+            updateDashboard();
+
+            document.getElementById("resizeMessage").textContent =
+                "Browser resized: " +
+                window.innerWidth +
+                " × " +
+                window.innerHeight +
+                " px";
+        });
+
+        window.addEventListener("scroll", function() {
+            document.getElementById("scrollX").textContent =
+                window.scrollX + " px";
+
+            document.getElementById("scrollY").textContent =
+                window.scrollY + " px";
+        });
+
+        window.addEventListener("online", function() {
+            updateDashboard();
+        });
+        window.addEventListener("offline", function() {
+            updateDashboard();
+        });
+    </script>
+</body>
+</html>

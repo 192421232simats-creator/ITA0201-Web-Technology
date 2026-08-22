@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Interactive Event Registration</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #dbeafe, #fce7f3);
+            padding: 40px;
+        }
+
+        .container {
+            width: 500px;
+            max-width: 100%;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e3a8a;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #334155;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #2563eb;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        #modernButton {
+            background: #7c3aed;
+        }
+
+        #modernButton:hover {
+            background: #6d28d9;
+        }
+
+        #output {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #ecfdf5;
+            color: #166534;
+            display: none;
+        }
+
+        #eventStatus {
+            margin-top: 20px;
+            padding: 12px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            text-align: center;
+            color: #475569;
+        }
+
+        .hover-box {
+            margin-top: 20px;
+            padding: 15px;
+            text-align: center;
+            border-radius: 10px;
+            background: #fef3c7;
+            color: #92400e;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .hover-box.active {
+            background: #fde68a;
+            transform: scale(1.03);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🎓 Event Registration</h1>
+
+    <p class="subtitle">
+        Interactive JavaScript Event Demonstration
+    </p>
+
+    <form id="registrationForm">
+
+        <!-- INPUT EVENT -->
+        <label for="studentName">Student Name</label>
+
+        <input
+            type="text"
+            id="studentName"
+            placeholder="Enter your name"
+        >
+
+
+        <!-- FOCUS AND BLUR EVENTS -->
+        <label for="email">Email</label>
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+        >
+
+
+        <!-- CHANGE EVENT -->
+        <label for="eventSelect">Select Event</label>
+
+        <select id="eventSelect">
+
+            <option value="">-- Select an Event --</option>
+
+            <option value="AI & Machine Learning Workshop">
+                AI & Machine Learning Workshop
+            </option>
+
+            <option value="Web Development Bootcamp">
+                Web Development Bootcamp
+            </option>
+
+            <option value="Cybersecurity Seminar">
+                Cybersecurity Seminar
+            </option>
+
+        </select>
+
+
+        <!-- INTRINSIC EVENT: onclick -->
+        <button
+            type="button"
+            onclick="intrinsicMessage()">
+
+            Intrinsic Event Button
+        </button>
+
+
+        <!-- MODERN EVENT: addEventListener -->
+        <button
+            type="button"
+            id="modernButton">
+
+            Modern Event Button
+        </button>
+
+
+        <!-- SUBMIT EVENT -->
+        <button type="submit">
+
+            Register for Event
+        </button>
+
+    </form>
+
+
+    <!-- MOUSEOVER AND MOUSEOUT -->
+    <div
+        class="hover-box"
+        id="hoverBox">
+
+        Move your mouse over this box
+    </div>
+
+
+    <!-- EVENT STATUS -->
+    <div id="eventStatus">
+        Event status will appear here.
+    </div>
+
+
+    <!-- REGISTRATION OUTPUT -->
+    <div id="output"></div>
+
+</div>
+
+
+<script>
+
+    // ------------------------------------------------
+    // 1. INTRINSIC EVENT HANDLING - onclick
+    // ------------------------------------------------
+
+    function intrinsicMessage() {
+
+        document.getElementById("eventStatus").textContent =
+            "onclick event executed using intrinsic event handling.";
+
+        alert("This button uses onclick!");
+    }
+
+
+    // ------------------------------------------------
+    // 2. INPUT EVENT
+    // ------------------------------------------------
+
+    document.getElementById("studentName").addEventListener(
+        "input",
+        function () {
+
+            let name = this.value;
+
+            document.getElementById("eventStatus").textContent =
+                "Input Event: " + name;
+        }
+    );
+
+
+    // ------------------------------------------------
+    // 3. FOCUS EVENT
+    // ------------------------------------------------
+
+    document.getElementById("email").addEventListener(
+        "focus",
+        function () {
+
+            this.style.backgroundColor = "#eff6ff";
+
+            document.getElementById("eventStatus").textContent =
+                "Focus Event: Email field is active.";
+        }
+    );
+
+
+    // ------------------------------------------------
+    // 4. BLUR EVENT
+    // ------------------------------------------------
+
+    document.getElementById("email").addEventListener(
+        "blur",
+        function () {
+
+            this.style.backgroundColor = "white";
+
+            document.getElementById("eventStatus").textContent =
+                "Blur Event: Email field lost focus.";
+        }
+    );
+
+
+    // ------------------------------------------------
+    // 5. CHANGE EVENT
+    // ------------------------------------------------
+
+    document.getElementById("eventSelect").addEventListener(
+        "change",
+        function () {
+
+            document.getElementById("eventStatus").textContent =
+                "Change Event: Selected " + this.value;
+        }
+    );
+
+
+    // ------------------------------------------------
+    // 6. MOUSEOVER EVENT
+    // ------------------------------------------------
+
+    document.getElementById("hoverBox").addEventListener(
+        "mouseover",
+        function () {
+
+            this.classList.add("active");
+
+            this.textContent =
+                "Mouseover Event: Mouse is inside the box.";
+        }
+    );
+
+
+    // ------------------------------------------------
+    // 7. MOUSEOUT EVENT
+    // ------------------------------------------------
+
+    document.getElementById("hoverBox").addEventListener(
+        "mouseout",
+        function () {
+
+            this.classList.remove("active");
+
+            this.textContent =
+                "Mouseout Event: Mouse left the box.";
+        }
+    );
+
+
+    // ------------------------------------------------
+    // 8. MODERN EVENT HANDLING - addEventListener()
+    // ------------------------------------------------
+
+    document.getElementById("modernButton").addEventListener(
+        "click",
+        function () {
+
+            document.getElementById("eventStatus").textContent =
+                "Modern event handling using addEventListener()";
+
+            alert("This button uses addEventListener()!");
+        }
+    );
+
+
+    // ------------------------------------------------
+    // 9. SUBMIT EVENT
+    // ------------------------------------------------
+
+    document.getElementById("registrationForm").addEventListener(
+        "submit",
+        function (event) {
+
+            // Prevent page refresh
+            event.preventDefault();
+
+            let name =
+                document.getElementById("studentName").value;
+
+            let email =
+                document.getElementById("email").value;
+
+            let selectedEvent =
+                document.getElementById("eventSelect").value;
+
+
+            // Validation
+            if (
+                name === "" ||
+                email === "" ||
+                selectedEvent === ""
+            ) {
+
+                alert("Please fill all the details.");
+
+                return;
+            }
+
+
+            // Display registration result
+            let output =
+                document.getElementById("output");
+
+            output.style.display = "block";
+
+            output.innerHTML =
+                "<strong>Registration Successful!</strong><br><br>" +
+                "Student Name: " + name + "<br>" +
+                "Email: " + email + "<br>" +
+                "Event: " + selectedEvent;
+
+
+            document.getElementById("eventStatus").textContent =
+                "Submit Event: Registration completed successfully.";
+        }
+    );
+
+</script>
+
+</body>
+</html>
