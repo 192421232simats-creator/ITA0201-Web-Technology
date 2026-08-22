@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>UniSphere | Student Registration</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #eef2ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 25px;
+        }
+
+        .main-container {
+            width: 1100px;
+            min-height: 680px;
+            display: grid;
+            grid-template-columns: 42% 58%;
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 25px 70px rgba(30, 41, 59, 0.18);
+        }
+
+        /* LEFT PANEL */
+
+        .left-panel {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(145deg, #312e81, #4338ca, #2563eb);
+            padding: 55px 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: white;
+        }
+
+        .circle-one {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            top: -80px;
+            right: -80px;
+        }
+
+        .circle-two {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            bottom: -60px;
+            left: -50px;
+        }
+
+        .brand {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: rgba(255,255,255,0.18);
+            border: 1px solid rgba(255,255,255,0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .brand-name {
+            font-size: 21px;
+            font-weight: 700;
+        }
+
+        .brand-small {
+            font-size: 10px;
+            letter-spacing: 2px;
+            opacity: 0.7;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content .tag {
+            display: inline-block;
+            padding: 7px 13px;
+            border-radius: 30px;
+            background: rgba(255,255,255,0.13);
+            border: 1px solid rgba(255,255,255,0.2);
+            font-size: 11px;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 42px;
+            line-height: 1.12;
+            margin-bottom: 18px;
+        }
+
+        .hero-content h1 span {
+            color: #bfdbfe;
+        }
+
+        .hero-content p {
+            color: #dbeafe;
+            font-size: 14px;
+            line-height: 1.8;
+            max-width: 340px;
+        }
+
+        .features {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: #e0e7ff;
+        }
+
+        .feature-icon {
+            width: 31px;
+            height: 31px;
+            border-radius: 9px;
+            background: rgba(255,255,255,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* RIGHT PANEL */
+
+        .right-panel {
+            padding: 45px 50px;
+            background: #ffffff;
+        }
+
+        .form-header {
+            margin-bottom: 30px;
+        }
+
+        .form-header .small-title {
+            color: #6366f1;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .form-header h2 {
+            color: #111827;
+            font-size: 29px;
+            margin-bottom: 7px;
+        }
+
+        .form-header p {
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .progress {
+            display: flex;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #4f46e5;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .step-circle {
+            width: 27px;
+            height: 27px;
+            border-radius: 50%;
+            background: #4f46e5;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 11px;
+        }
+
+        .progress-line {
+            height: 2px;
+            flex: 1;
+            background: #e0e7ff;
+            margin: 0 12px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .input-group label {
+            display: block;
+            color: #374151;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #818cf8;
+            font-size: 16px;
+            pointer-events: none;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            height: 48px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 0 15px 0 43px;
+            outline: none;
+            background: #f9fafb;
+            color: #111827;
+            font-size: 13px;
+            transition: 0.25s;
+        }
+
+        .input-wrapper input::placeholder {
+            color: #9ca3af;
+        }
+
+        .input-wrapper input:focus {
+            background: white;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 4px rgba(99,102,241,0.08);
+        }
+
+        .register-button {
+            width: 100%;
+            height: 52px;
+            border: none;
+            border-radius: 13px;
+            margin-top: 28px;
+            background: linear-gradient(100deg, #4f46e5, #2563eb);
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            box-shadow: 0 12px 25px rgba(79,70,229,0.22);
+            transition: 0.25s;
+        }
+
+        .register-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 30px rgba(79,70,229,0.3);
+        }
+
+        .privacy {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 10px;
+            margin-top: 17px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 10px;
+            margin-top: 22px;
+        }
+
+        @media (max-width: 900px) {
+
+            .main-container {
+                grid-template-columns: 1fr;
+                max-width: 650px;
+            }
+
+            .left-panel {
+                min-height: 420px;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 10px;
+            }
+
+            .right-panel {
+                padding: 30px 22px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .input-group.full {
+                grid-column: auto;
+            }
+
+            .hero-content h1 {
+                font-size: 34px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="main-container">
+
+    <!-- LEFT SIDE -->
+
+    <div class="left-panel">
+
+        <div class="circle-one"></div>
+        <div class="circle-two"></div>
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                US
+            </div>
+
+            <div>
+                <div class="brand-name">UniSphere</div>
+                <div class="brand-small">STUDENT PORTAL</div>
+            </div>
+
+        </div>
+
+        <div class="hero-content">
+
+            <div class="tag">
+                ✦ NEW STUDENT REGISTRATION
+            </div>
+
+            <h1>
+                Begin your<br>
+                <span>academic journey.</span>
+            </h1>
+
+            <p>
+                Create your student profile and become part
+                of our connected academic community.
+                Your information will be securely processed
+                through our registration system.
+            </p>
+
+        </div>
+
+        <div class="features">
+
+            <div class="feature">
+                <div class="feature-icon">✓</div>
+                <span>Quick and simple registration</span>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">◆</div>
+                <span>Secure student information processing</span>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">★</div>
+                <span>Instant registration confirmation</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT SIDE -->
+
+    <div class="right-panel">
+
+        <div class="form-header">
+
+            <div class="small-title">
+                Registration Form
+            </div>
+
+            <h2>Create Student Profile</h2>
+
+            <p>
+                Fill in the details below to complete registration.
+            </p>
+
+        </div>
+
+
+        <div class="progress">
+
+            <div class="progress-step">
+
+                <div class="step-circle">
+                    1
+                </div>
+
+                <span>Details</span>
+
+            </div>
+
+            <div class="progress-line"></div>
+
+            <div class="progress-step">
+
+                <div class="step-circle">
+                    2
+                </div>
+
+                <span>Submit</span>
+
+            </div>
+
+        </div>
+
+
+        <form action="StudentRegistrationServlet" method="post">
+
+            <div class="form-grid">
+
+                <div class="input-group">
+
+                    <label>Student Name</label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">♙</span>
+
+                        <input
+                            type="text"
+                            name="studentName"
+                            placeholder="Enter your full name"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Register Number</label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">#</span>
+
+                        <input
+                            type="text"
+                            name="registerNumber"
+                            placeholder="e.g. 192421232"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Email Address</label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">✉</span>
+
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="student@example.com"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Department</label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">◆</span>
+
+                        <input
+                            type="text"
+                            name="department"
+                            placeholder="Information Technology"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                <div class="input-group full">
+
+                    <label>Semester</label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">▣</span>
+
+                        <input
+                            type="text"
+                            name="semester"
+                            placeholder="Enter current semester"
+                            required>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <button type="submit" class="register-button">
+                Complete Registration &nbsp; →
+            </button>
+
+        </form>
+
+
+        <div class="privacy">
+            Your submitted information is processed through a Java Servlet.
+        </div>
+
+        <div class="footer">
+            UniSphere Student Portal • Academic Registration System
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
