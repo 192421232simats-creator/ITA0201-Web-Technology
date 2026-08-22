@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Registration Preview</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #101827, #172b4d, #243b55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    color: #ffffff;
+}
+
+.container {
+    width: 900px;
+    max-width: 100%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 24px;
+    padding: 35px;
+    backdrop-filter: blur(18px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header .icon {
+    width: 65px;
+    height: 65px;
+    margin: auto;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #7c5cff, #00d4ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.25);
+}
+
+.header h1 {
+    margin-top: 18px;
+    font-size: 30px;
+    letter-spacing: 1px;
+}
+
+.header p {
+    margin-top: 8px;
+    color: #b9c7da;
+    font-size: 14px;
+}
+
+.form-area {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.input-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-box label {
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: #cbd7e8;
+    font-weight: 600;
+}
+
+.input-box input,
+.input-box select {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    outline: none;
+    background: rgba(255,255,255,0.09);
+    color: white;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.input-box input:focus,
+.input-box select:focus {
+    border-color: #00d4ff;
+    box-shadow: 0 0 0 3px rgba(0,212,255,0.12);
+    transform: translateY(-2px);
+}
+
+.input-box select option {
+    color: #111827;
+}
+
+.buttons {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 12px;
+    margin-top: 5px;
+}
+
+button {
+    flex: 1;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+#displayBtn {
+    background: linear-gradient(135deg, #7c5cff, #00b8d9);
+    color: white;
+}
+
+#removeBtn {
+    background: rgba(255,255,255,0.10);
+    color: #ffffff;
+    border: 1px solid rgba(255,255,255,0.18);
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+.preview-title {
+    margin-top: 32px;
+    margin-bottom: 15px;
+    color: #cbd7e8;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+#profileArea {
+    min-height: 100px;
+}
+
+.profile-card {
+    background: linear-gradient(135deg, rgba(124,92,255,0.18), rgba(0,212,255,0.10));
+    border: 1px solid rgba(0,212,255,0.25);
+    border-radius: 18px;
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+    animation: appear 0.5s ease;
+}
+
+.profile-card::before {
+    content: "";
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: rgba(0,212,255,0.08);
+    right: -45px;
+    top: -45px;
+}
+
+.profile-card h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.detail {
+    background: rgba(0,0,0,0.15);
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.detail span {
+    display: block;
+    color: #91a4bd;
+    font-size: 11px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.detail strong {
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.empty {
+    text-align: center;
+    padding: 25px;
+    border: 1px dashed rgba(255,255,255,0.18);
+    border-radius: 15px;
+    color: #8293aa;
+    font-size: 13px;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 650px) {
+    .container {
+        padding: 25px 20px;
+    }
+
+    .form-area {
+        grid-template-columns: 1fr;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <div class="icon">🎓</div>
+        <h1>Student Registration</h1>
+        <p>Create your profile and preview your details instantly</p>
+    </div>
+
+    <div class="form-area">
+
+        <div class="input-box">
+            <label for="studentName">Student Name</label>
+            <input type="text" id="studentName" placeholder="Enter your full name">
+        </div>
+
+        <div class="input-box">
+            <label for="registerNumber">Register Number</label>
+            <input type="text" id="registerNumber" placeholder="Enter register number">
+        </div>
+
+        <div class="input-box">
+            <label for="department">Department</label>
+            <select id="department">
+                <option value="">Select Department</option>
+                <option value="Information Technology">Information Technology</option>
+                <option value="Computer Science Engineering">Computer Science Engineering</option>
+                <option value="Artificial Intelligence and Data Science">AI & Data Science</option>
+                <option value="Electronics and Communication Engineering">ECE</option>
+                <option value="Mechanical Engineering">Mechanical Engineering</option>
+            </select>
+        </div>
+
+        <div class="input-box">
+            <label for="year">Year of Study</label>
+            <select id="year">
+                <option value="">Select Year</option>
+                <option value="First Year">First Year</option>
+                <option value="Second Year">Second Year</option>
+                <option value="Third Year">Third Year</option>
+                <option value="Fourth Year">Fourth Year</option>
+            </select>
+        </div>
+
+        <div class="buttons">
+            <button id="displayBtn">✨ Display Profile</button>
+            <button id="removeBtn">✕ Remove Profile</button>
+        </div>
+
+    </div>
+
+    <div class="preview-title">PROFILE PREVIEW</div>
+
+    <div id="profileArea">
+        <div class="empty">
+            Your student profile will appear here.
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+const displayButton = document.getElementById("displayBtn");
+const removeButton = document.getElementById("removeBtn");
+const profileArea = document.getElementById("profileArea");
+
+displayButton.addEventListener("click", function() {
+
+    const name = document.getElementById("studentName").value.trim();
+    const registerNumber = document.getElementById("registerNumber").value.trim();
+    const department = document.getElementById("department").value;
+    const year = document.getElementById("year").value;
+
+    if (name === "" || registerNumber === "" || department === "" || year === "") {
+        alert("Please complete all student details.");
+        return;
+    }
+
+    profileArea.textContent = "";
+
+    const card = document.createElement("div");
+    card.classList.add("profile-card");
+
+    const title = document.createElement("h2");
+    title.textContent = "Student Profile";
+
+    const grid = document.createElement("div");
+    grid.classList.add("profile-grid");
+
+    const nameBox = document.createElement("div");
+    nameBox.classList.add("detail");
+
+    const nameLabel = document.createElement("span");
+    nameLabel.textContent = "Name";
+
+    const nameValue = document.createElement("strong");
+    nameValue.textContent = name;
+
+    nameBox.appendChild(nameLabel);
+    nameBox.appendChild(nameValue);
+
+    const registerBox = document.createElement("div");
+    registerBox.classList.add("detail");
+
+    const registerLabel = document.createElement("span");
+    registerLabel.textContent = "Register Number";
+
+    const registerValue = document.createElement("strong");
+    registerValue.textContent = registerNumber;
+
+    registerBox.appendChild(registerLabel);
+    registerBox.appendChild(registerValue);
+
+    const departmentBox = document.createElement("div");
+    departmentBox.classList.add("detail");
+
+    const departmentLabel = document.createElement("span");
+    departmentLabel.textContent = "Department";
+
+    const departmentValue = document.createElement("strong");
+    departmentValue.textContent = department;
+
+    departmentBox.appendChild(departmentLabel);
+    departmentBox.appendChild(departmentValue);
+
+    const yearBox = document.createElement("div");
+    yearBox.classList.add("detail");
+
+    const yearLabel = document.createElement("span");
+    yearLabel.textContent = "Year";
+
+    const yearValue = document.createElement("strong");
+    yearValue.textContent = year;
+
+    yearBox.appendChild(yearLabel);
+    yearBox.appendChild(yearValue);
+
+    grid.appendChild(nameBox);
+    grid.appendChild(registerBox);
+    grid.appendChild(departmentBox);
+    grid.appendChild(yearBox);
+
+    card.appendChild(title);
+    card.appendChild(grid);
+
+    profileArea.appendChild(card);
+});
+
+removeButton.addEventListener("click", function() {
+    profileArea.textContent = "";
+
+    const emptyMessage = document.createElement("div");
+    emptyMessage.classList.add("empty");
+    emptyMessage.textContent = "Your student profile will appear here.";
+
+    profileArea.appendChild(emptyMessage);
+});
+
+</script>
+
+</body>
+</html>
